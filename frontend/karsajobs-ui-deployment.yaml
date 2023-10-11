@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs-ui
+  labels:
+    app: karsajobs-ui
+    tier: karsajobs-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: karsajobs-ui
+  template:
+    metadata:
+      labels:
+        app: karsajobs-ui
+        tier: karsajobs-ui
+    spec:
+      containers:
+      - name: karsajobs-ui
+        image: aluth313/karsajobs-ui:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8000
