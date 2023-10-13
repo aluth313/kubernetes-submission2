@@ -3,13 +3,6 @@ kind: ConfigMap
 metadata:
   name: mongo-configmap
 data:
-  mongodb.conf: |
+  mongo.conf: |
     storage:
-      dbPath: "/data/db"
-    net:
-      bindIp: "0.0.0.0"
-    systemLog:
-      destination: file
-      path: "/var/log/mongodb/mongod.log"
-    security:
-      authorization: enabled
+      dbPath: /data/db

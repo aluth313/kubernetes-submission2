@@ -10,3 +10,4 @@ spec:
   - port: 8000
   selector:
     tier: karsajobs-ui
+  type: NodePort
