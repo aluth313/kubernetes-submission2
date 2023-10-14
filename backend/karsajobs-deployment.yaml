@@ -19,14 +19,14 @@ spec:
       containers:
       - name: karsajobs
         image: aluth313/karsajobs:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
           - containerPort: 8080
         env:
           - name: APP_PORT
             value: "8080"
           - name: MONGO_HOST
-            value: "http://mongo.submission2-ns:27017"
+            value: mongo-service
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:

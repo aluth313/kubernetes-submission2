@@ -4,7 +4,6 @@ metadata:
   labels:
     app: karsajobs
   name: karsajobs
-  namespace: submission2-ns
 spec:
   ports:
   - port: 8080

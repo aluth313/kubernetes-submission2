@@ -10,7 +10,7 @@ spec:
       app: mongo
       tier: backend
   serviceName: mongo
-  replicas: 2
+  replicas: 1
   minReadySeconds: 10
   template:
     metadata:
@@ -20,13 +20,13 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - image: mongo:latest
+      - image: mongo:3
         name: mongo
         env:
-        - name: MONGO_INITDB_ROOT_USERNAME_FILE
-        - value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
-        - name: MONGO_INITDB_ROOT_PASSWORD_FILE
-        - value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+          - name: MONGO_INITDB_ROOT_USERNAME_FILE
+            value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+          - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+            value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
         ports:
         - containerPort: 27017
           name: mongo-container
@@ -35,9 +35,25 @@ spec:
           mountPath: /data/db
         - name: config-map
           mountPath: /config
-        - name: secret
+        - name: mongo-secret
           mountPath: /etc/mongo-credentials
       volumes:
       - name: mongo-persistent-storage
         persistentVolumeClaim:
           claimName: mongo-pv-claim
+      - name: config-map
+        configMap:
+          name: mongo-configmap
+          items:
+          - key: mongo.conf
+            path: mongo.conf
+      - name: mongo-secret
+        secret:
+          secretName: mongo-secret
+          items:
+          - key: MONGO_ROOT_USERNAME
+            path: MONGO_ROOT_USERNAME
+            mode: 0444
+          - key: MONGO_ROOT_PASSWORD
+            path: MONGO_ROOT_PASSWORD
+            mode: 0444

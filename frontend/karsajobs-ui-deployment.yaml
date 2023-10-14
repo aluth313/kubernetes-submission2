@@ -19,6 +19,9 @@ spec:
       containers:
       - name: karsajobs-ui
         image: aluth313/karsajobs-ui:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
           - containerPort: 8000
+        env:
+          - name: VUE_APP_BACKEND
+            value: http://127.0.0.1:46579
